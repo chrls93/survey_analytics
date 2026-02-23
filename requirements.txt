@@ -1,0 +1,12 @@
+pandas==2.2.0
+openpyxl==3.1.2
+spacy==3.7.2
+pl_core_news_md==3.7.0
+streamlit==1.31.0
+google-genai==1.64.0
+llama-cpp-python==0.2.26
+scikit-learn==1.4.0
+bertopic==0.16.0
+plotly==5.18.0
+notebook==2.28.0
+dotenv==1.2.1

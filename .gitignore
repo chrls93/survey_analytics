@@ -1,0 +1,6 @@
+.env
+.venv
+/venv
+
+gemini_hello_world.py
+.DS_Store
