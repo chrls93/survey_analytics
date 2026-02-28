@@ -42,6 +42,9 @@ class DataLoader:
         if df.empty:
             raise ValueError("Plik jest pusty.")
         
+        if "text" not in df.columns:
+            raise ValueError("Brak kolumny 'text' w pliku. Nazwij w ten sposób kolumnę, która ma zostać poddana analizie.")
+        
         initial_count = len(df)
         
         # Usuń zduplikowane kolumny

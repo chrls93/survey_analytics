@@ -8,3 +8,6 @@ gemini_hello_world.py
 .DS_Store
 /src/__pycache__
 data/*/
+brudnopis_poleval.ipynb
+brudnopis_ar.ipynb
+/output

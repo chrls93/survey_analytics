@@ -1,23 +1,29 @@
-from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
-import pandas as pd
+from bertopic import BERTopic
+from bertopic.representation import KeyBERTInspired, MaximalMarginalRelevance
 
-class AnalyticsEngine:
-    @staticmethod
-    def calculate_metrics(y_true, y_pred):
-        """Oblicza metryki rzetelności systemu (Wymaganie niefunkcjonalne nr 1)"""
-        return {
-            "accuracy": accuracy_score(y_true, y_pred),
-            "f1_macro": f1_score(y_true, y_pred, average='macro'),
-            "confusion_matrix": confusion_matrix(y_true, y_pred).tolist()
-        }
+class AnalyticsModule:
+    def __init__(self, embedding_model, llm_orchestrator):
+        self.llm = llm_orchestrator
+        # Konfiguracja BERTopic z HerBERT-em jako bazą
+        self.topic_model = BERTopic(
+            embedding_model=embedding_model,
+            representation_model=KeyBERTInspired() # Wykorzystujemy HerBERTa do słów kluczowych
+        )
 
-    @staticmethod
-    def estimate_costs(total_tokens, model_name="gemini-1.5-flash"):
-        """Szacowanie kosztów (Wymaganie niefunkcjonalne nr 3)"""
-        # Przykładowe stawki (do aktualizacji w pracy)
-        rates = {
-            "gemini-1.5-flash": 0.000125, # USD za 1k tokenów
-            "bielik": 0.0 # Model lokalny
-        }
-        cost = (total_tokens / 1000) * rates.get(model_name, 0)
-        return round(cost, 4)
+    def perform_topic_modeling(self, docs):
+        """Odkrywanie tematów w ankietach"""
+        topics, probs = self.topic_model.fit_transform(docs)
+        return topics, self.topic_model.get_topic_info()
+
+    def generate_business_labels(self, topic_info):
+        """Post-processing: LLM nadaje nazwy klastrom"""
+        labels = {}
+        for index, row in topic_info.iterrows():
+            if row['Topic'] == -1: continue # Pomijamy szum
+            
+            keywords = row['Representation']
+            # Prompt do LLM (Bielik/Gemini)
+            prompt = f"Na podstawie słów kluczowych: {keywords}, wymyśl krótką (max 3 słowa) nazwę kategorii biznesowej."
+            labels[row['Topic']] = self.llm.generate(prompt)
+            
+        return labels
