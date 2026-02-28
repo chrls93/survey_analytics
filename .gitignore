@@ -7,4 +7,4 @@
 gemini_hello_world.py
 .DS_Store
 /src/__pycache__
-/data/downloaded
+data/*/
