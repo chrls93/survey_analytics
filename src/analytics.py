@@ -4,10 +4,9 @@ from bertopic.representation import KeyBERTInspired, MaximalMarginalRelevance
 class AnalyticsModule:
     def __init__(self, embedding_model, llm_orchestrator):
         self.llm = llm_orchestrator
-        # Konfiguracja BERTopic z HerBERT-em jako bazą
         self.topic_model = BERTopic(
             embedding_model=embedding_model,
-            representation_model=KeyBERTInspired() # Wykorzystujemy HerBERTa do słów kluczowych
+            representation_model=KeyBERTInspired()
         )
 
     def perform_topic_modeling(self, docs):
