@@ -4,7 +4,6 @@
 /github
 .github
 
-gemini_hello_world.py
 .DS_Store
 /src/__pycache__
 data/*/
@@ -15,3 +14,5 @@ brudnopis_poleval.ipynb
 brudnopis_ar.ipynb
 brudnopis_moduly.ipynb
 /output
+/notatki
+grounding_script.ipynb

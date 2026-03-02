@@ -110,7 +110,7 @@ class DataLoader:
         print(f"Po usunięciu znaków i czyszczeniu za pomocą regex zostało {len(cleaned_texts)} wierszy.")
         
         # Filtracja po długości
-        texts = [t for t in cleaned_texts if len(t.split()) > min_word_length]
-        print(f"Po filtracji długości (>{min_word_length} słów) zostało {len(texts)} tekstów do analizy.")
+        dataset_texts = [t for t in cleaned_texts if len(t.split()) > min_word_length]
+        print(f"Po filtracji długości (>{min_word_length} słów) zostało {len(dataset_texts)} tekstów do analizy.")
         
-        return raw_texts, cleaned_texts, texts, all_stopwords
+        return raw_texts, cleaned_texts, dataset_texts, all_stopwords

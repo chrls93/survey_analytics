@@ -15,9 +15,8 @@ if not uploaded_file:
     st.sidebar.markdown("---")
     st.sidebar.subheader("Pobierz przykładowy dataset")
     datasets = {
-        "Allegro reviews": "https://klejbenchmark.com/static/data/klej_ar.zip",
-        "PolEval Hotels": "https://placeholder.com/poleval_hotels.zip",
-        "Syntetyczna Ankieta HR": "https://placeholder.com/hr_survey.zip"
+        "Allegro reviews": "https://raw.githubusercontent.com/chrls93/survey_analytics/refs/heads/main/data/allegro_ground_truth.csv",
+        "PolEval Hotels": "https://raw.githubusercontent.com/chrls93/survey_analytics/refs/heads/main/data/poleval_parsed.csv",
     }
     
     selected_dataset = st.sidebar.selectbox("Wybierz dataset", list(datasets.keys()))
@@ -27,7 +26,7 @@ if not uploaded_file:
             fetcher.download_and_extract(datasets[selected_dataset])
         st.sidebar.success("Dataset pobrany!")
 
-model_choice = st.sidebar.selectbox("Wybierz model", ["HerBERT", "Gemini", "Bielik (Lokalnie)"])
+model_choice = st.sidebar.selectbox("Wybierz model", ["MMLW-RoBERTA", "Gemini (API)"])
 
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
